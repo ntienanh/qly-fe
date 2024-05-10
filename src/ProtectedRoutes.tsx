@@ -10,7 +10,8 @@ const useAuth = () => {
 
 const ProtectedRoutes = () => {
   const location = useLocation();
-  const isAuth = useAuth();
+  // const isAuth = useAuth();
+  const isAuth = true;
 
   return isAuth ? <Outlet /> : <Navigate to='/login' replace state={{ from: location }} />;
 };
