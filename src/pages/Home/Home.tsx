@@ -1,7 +1,7 @@
 const Home = () => {
   return (
     <div className='flex flex-col gap-4'>
-      Change home for git action
+      Change home for git action 2222222222222222
       <p className='text-[32px] font-medium'>Trang chủ</p>
       <p>Thống kê</p>
       <p className='text-[32px] font-medium'>Trang chủ</p>
