@@ -24,14 +24,14 @@ const MainLayout = () => {
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed} className='!fixed !duration-300'>
-        <div className='h-[64px] bg-white flex justify-center items-center border-r border-gray-100'>
+        <div className='flex h-[64px] items-center justify-center border-r border-gray-100 bg-white'>
           <Link to={'/'}>
             <img
               src='https://png.pngtree.com/png-clipart/20230116/original/pngtree-online-shopping-logo-desing-png-image_8918925.png'
               alt='logo'
               width={200}
               height={64}
-              className={clsx('object-contain h-[64px] w-[200px]', collapsed && 'p-1 transition delay-1000')}
+              className={clsx('h-[64px] w-[200px] object-contain', collapsed && 'p-1 transition delay-1000')}
             />
           </Link>
         </div>
@@ -42,7 +42,7 @@ const MainLayout = () => {
           defaultSelectedKeys={['1']}
           items={[
             { key: '1', icon: <HomeOutlined />, label: <Link to={'/'}>Trang chủ</Link> },
-            { key: '2', icon: <PrinterOutlined />, label: <Link to={'/'}>Cơ sở vật chất</Link> },
+            { key: '2', icon: <PrinterOutlined />, label: <Link to={'/supplies'}>Cơ sở vật chất</Link> },
             { key: '3', icon: <PicLeftOutlined />, label: <Link to={'/'}>Phòng ban</Link> },
             { key: '4', icon: <UsergroupAddOutlined />, label: <Link to={'/'}>Nhân viên</Link> },
             { key: '5', icon: <GiftOutlined />, label: <Link to={'/product'}>Sản phẩm</Link> },
@@ -51,12 +51,12 @@ const MainLayout = () => {
       </Sider>
 
       <Layout className={clsx('ml-[200px] h-auto !duration-300', collapsed && 'ml-[80px] !duration-300')}>
-        <Header className='p-0 flex justify-between items-center bg-gray-100 shadow-md sticky z-20 top-0 backdrop-blur-[9px] bg-opacity-70'>
+        <Header className='sticky top-0 z-20 flex items-center justify-between bg-gray-100 bg-opacity-70 p-0 shadow-md backdrop-blur-[9px]'>
           <Button
             type='text'
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
-            className='!w-[64px] h-[64px] !rounded-none'
+            className='h-[64px] !w-[64px] !rounded-none'
           />
 
           <div className='pr-4'>

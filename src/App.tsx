@@ -9,6 +9,7 @@ import Home from './pages/Home/Home';
 import LoginPage from './pages/Login';
 import Product from './pages/Product/Product';
 import ProductDetail from './pages/Product/ProductDetail';
+import Supplies from './pages/Supplies';
 
 export const UserContext = createContext({} as any);
 
@@ -24,6 +25,7 @@ function App() {
           <Route element={<ProtectedRoutes />}>
             <Route element={<MainLayout />}>
               <Route path='/' element={<Home />} />
+              <Route path='/supplies' element={<Supplies />} />
               <Route path='product' element={<Product />} />
               <Route path='product/:id' element={<ProductDetail />} />
             </Route>

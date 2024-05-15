@@ -1,14 +1,33 @@
-const LoginPage = () => {
-  return (
-    <div className='px-4 flex flex-col justify-center items-center mx-auto max-w-[1280px] h-screen'>
-      <div className='px-4 flex h-[500px] justify-center items-center gap-5 shadow-[6px_6px_12px_#bebebe,-6px_-6px_12px_#ffffff] rounded-[50px]'>
-        <div className='flex-[9]'>
-          <img src='../images/login.svg' alt='page not found' />
-        </div>
+import { Button, Input } from 'antd';
 
-        <div className='bg-slate-200 flex-[10]'>Login form</div>
+const LoginPage = (props: any) => {
+  const { setIsLoggedIn } = props;
+
+  const handleSubmit = (e: any) => {
+    console.log('submit');
+    e.preventDefault();
+    setIsLoggedIn(true);
+  };
+
+  return (
+    <section className='flex h-screen w-screen'>
+      <div className='hidden h-screen flex-[4] bg-[#000] md:flex'>
+        <img src='../images/login.webp' alt='Welcome' className='h-screen object-cover opacity-85' />
       </div>
-    </div>
+
+      <div className='flex h-full flex-[3] flex-col items-center justify-center gap-3 bg-gray-50 px-4'>
+        <p className='text-[36px] font-semibold'>Đăng nhập</p>
+
+        <form className='flex w-3/4 flex-col gap-4 pt-3 lg:w-[420px]'>
+          <Input placeholder='Tài khoản' size='large' />
+          <Input.Password placeholder='Mật khẩu' size='large' />
+
+          <Button type='primary' size='large' onClick={handleSubmit}>
+            Đăng nhập
+          </Button>
+        </form>
+      </div>
+    </section>
   );
 };
 
