@@ -96,7 +96,7 @@ const Product = () => {
       dataIndex: 'images',
       key: 'images',
       render: (images: any) => {
-        return images.data ? (
+        return images?.data ? (
           <div className='flex'>
             <img
               src={`http://localhost:1337${images.data?.[images.data.length - 1].attributes.url}`}
