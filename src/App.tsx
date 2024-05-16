@@ -11,6 +11,8 @@ import AllProductDetail from './pages/AllProduct/AllProductDetail';
 import Home from './pages/Home/Home';
 import LoginPage from './pages/Login';
 import Product from './pages/Product/Product';
+import Kho from './pages/Kho';
+import Grade from './pages/Grade';
 
 export const UserContext = createContext({} as any);
 const queryClient = new QueryClient();
@@ -30,6 +32,8 @@ function App() {
                 <Route path='/' element={<Home />} />
                 <Route path='product' element={<Product />} />
                 <Route path='product_details' element={<AllProduct />} />
+                <Route path='kho' element={<Kho />} />
+                <Route path='grade' element={<Grade />} />
                 <Route path='product_details/:id' element={<AllProductDetail />} />
               </Route>
             </Route>

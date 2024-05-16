@@ -10,11 +10,10 @@ import { Controller, useForm } from 'react-hook-form';
 const Product = () => {
   const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [createDetails, setCreateDetails] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
   const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
 
-  const { control, handleSubmit, reset, setValue } = useForm<any>({
+  const { control, handleSubmit, reset, setValue, watch } = useForm<any>({
     defaultValues: { name: '', images: [], product_details: [] },
   });
 
@@ -23,9 +22,14 @@ const Product = () => {
     queryFn: () => axios.get('http://localhost:1337/api/products?populate=*').then(res => res.data),
   });
 
+  const dataSource = data?.data?.map((item: any) => {
+    const { id, attributes } = item;
+    return { id, ...attributes };
+  });
+
   const rsAllProducts = useQuery({
-    queryKey: ['products'],
-    queryFn: () => axios.get('http://localhost:1337/api/products-details').then(res => res.data),
+    queryKey: ['products-details'],
+    queryFn: () => axios.get('http://localhost:1337/api/product-details').then(res => res.data),
   });
 
   const allProducts = rsAllProducts?.data?.data.map((item: any) => {
@@ -39,12 +43,30 @@ const Product = () => {
     label: item.name,
   }));
 
-  console.log('allProducts', allProducts);
+  // console.log('allProducts', allProducts);
+  // console.log('dataSource', dataSource);
+  // get tất cả allProduct có trong dataSource rồi so sánh với allProducts
+
+  // const aa = dataSource?.map((item: any) => item.product_details?.data);
+  // console.log(aa);
+  // console.log('data allProducts', allProducts);
+  // lấy cái đó là data của select
 
   // Delete Mutations
   const deleteMutation = useMutation({
     mutationFn: (id: any) => {
       return axios.delete(`http://localhost:1337/api/products/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+  });
+
+  // Update Mutations
+  const updateMutation = useMutation({
+    mutationFn: (body: any) => {
+      const { id, ...data } = body;
+      return axios.put(`http://localhost:1337/api/products/${id}`, { data });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
@@ -115,6 +137,7 @@ const Product = () => {
                 className='text-blue-500'
                 onClick={() => {
                   setIsEdit(true);
+                  setValue('id', record.id);
                   setValue('name', record.name);
                   setValue('images', record.images);
                   setValue('product_details', record?.product_details);
@@ -138,11 +161,6 @@ const Product = () => {
 
   if (isLoading) return <div>Loading...</div>;
 
-  const dataSource = data?.data.map((item: any) => {
-    const { id, attributes } = item;
-    return { id, ...attributes };
-  });
-
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -150,18 +168,21 @@ const Product = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
     reset();
+    setIsEdit(false);
   };
 
   const onSubmit = (data: any) => {
-    if (isEdit) {
-      console.log('editttttttttttttt');
+    delete data.createdAt;
+    delete data.updatedAt;
+    delete data.createdBy;
+    delete data.updatedBy;
+    delete data.publishedAt;
+
+    if (data?.id) {
+      updateMutation.mutate(data);
     } else {
-      console.log('Createeeeeeeeeeeeeeeeeeeeeeeeee');
       createMutation.mutate(data);
     }
-
-    //Nếu thành công thì set mở modal tạo details theo số lượng
-    setCreateDetails(true);
     reset();
     setIsModalOpen(false);
   };
@@ -208,7 +229,7 @@ const Product = () => {
                     disabled
                     type='number'
                     placeholder='Số lượng'
-                    value={value?.data?.length}
+                    value={value?.data?.length || watch('product_details').length || 0}
                     onChange={onChange}
                     status={error ? 'error' : undefined}
                   />
@@ -237,11 +258,10 @@ const Product = () => {
                   return (
                     <Select
                       onChange={e => {
-                        console.log('onmChange giò đó', e);
+                        onChange(e);
                       }}
                       className='w-full'
                       mode='multiple'
-                      defaultValue='lucy'
                       value={transformedValue}
                       options={transformedAllProducts}
                     />
@@ -287,10 +307,6 @@ const Product = () => {
                 );
               }}
             />
-
-            <div className={createDetails ? 'block' : 'hidden'}>
-              <Divider>Tạo mới chi tiết sản phẩm</Divider>
-            </div>
           </form>
         </Modal>
       </div>

@@ -1,7 +1,6 @@
 import {
   CaretDownOutlined,
   ContainerOutlined,
-  GiftOutlined,
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -9,19 +8,43 @@ import {
   PicLeftOutlined,
   PrinterOutlined,
   UserOutlined,
-  UsergroupAddOutlined,
 } from '@ant-design/icons';
 import { Avatar, Button, Dropdown, Layout, Menu, MenuProps, Space } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import { Content, Header } from 'antd/es/layout/layout';
 import clsx from 'clsx';
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const items: MenuProps['items'] = [{ label: <Link to={'/login'}>Logout</Link>, key: '0' }];
 
+const itemsMenu = [
+  { key: '1', icon: <HomeOutlined />, label: <Link to={'/'}>Trang chủ</Link> },
+  { key: '2', icon: <PrinterOutlined />, label: <Link to={'/product'}>Cơ sở vật chất</Link> },
+  { key: '3', icon: <ContainerOutlined />, label: <Link to={'/product_details'}>Tất cả sản phẩm</Link> },
+  { key: '4', icon: <PicLeftOutlined />, label: <Link to={'/kho'}>Phòng kho</Link> },
+  { key: '5', icon: <OrderedListOutlined />, label: <Link to={'/grade'}>Khối lớp</Link> },
+];
+
 const MainLayout = () => {
   const [collapsed, setCollapsed] = React.useState(false);
+  const selectedKey = useLocation().pathname;
+
+  //Xác định pathname nào đang active > keep
+  const highlight = () => {
+    switch (selectedKey) {
+      case '/product':
+        return ['2'];
+      case '/product_details':
+        return ['3'];
+      case '/kho':
+        return ['4'];
+      case '/grade':
+        return ['5'];
+      default:
+        return ['1'];
+    }
+  };
 
   return (
     <Layout>
@@ -38,18 +61,7 @@ const MainLayout = () => {
           </Link>
         </div>
 
-        <Menu
-          className='!h-screen'
-          mode='inline'
-          defaultSelectedKeys={['1']}
-          items={[
-            { key: '1', icon: <HomeOutlined />, label: <Link to={'/'}>Trang chủ</Link> },
-            { key: '2', icon: <PrinterOutlined />, label: <Link to={'/product'}>Cơ sở vật chất</Link> },
-            { key: '2', icon: <ContainerOutlined />, label: <Link to={'/product_details'}>Tất cả sản phẩm</Link> },
-            { key: '3', icon: <PicLeftOutlined />, label: <Link to={'/'}>Phòng kho</Link> },
-            { key: '4', icon: <OrderedListOutlined />, label: <Link to={'/grade'}>Khối lớp</Link> },
-          ]}
-        />
+        <Menu selectedKeys={highlight()} className='!h-screen' mode='inline' items={itemsMenu} />
       </Sider>
 
       <Layout className={clsx('ml-[200px] h-auto !duration-300', collapsed && 'ml-[80px] !duration-300')}>
