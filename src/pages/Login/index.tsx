@@ -4,7 +4,6 @@ const LoginPage = (props: any) => {
   const { setIsLoggedIn } = props;
 
   const handleSubmit = (e: any) => {
-    console.log('submit');
     e.preventDefault();
     setIsLoggedIn(true);
   };

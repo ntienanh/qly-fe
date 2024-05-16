@@ -9,11 +9,10 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
-    ecmaFeatures: { modules: true },
-    'react-hooks/exhaustive-deps': 0,
-    '@typescript-eslint/ban-types': 0,
-    '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-    '@typescript-eslint/no-var-requires': true,
-    '@typescript-eslint/no-explicit-any': 'error',
+    // ecmaFeatures: { modules: false },
+    // 'react-hooks/exhaustive-deps': 0,
+    // '@typescript-eslint/ban-types': 0,
+    // '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+    // '@typescript-eslint/no-var-requires': true,
   },
 };

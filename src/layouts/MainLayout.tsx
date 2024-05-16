@@ -1,9 +1,11 @@
 import {
   CaretDownOutlined,
+  ContainerOutlined,
   GiftOutlined,
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  OrderedListOutlined,
   PicLeftOutlined,
   PrinterOutlined,
   UserOutlined,
@@ -11,7 +13,7 @@ import {
 } from '@ant-design/icons';
 import { Avatar, Button, Dropdown, Layout, Menu, MenuProps, Space } from 'antd';
 import Sider from 'antd/es/layout/Sider';
-import { Content, Footer, Header } from 'antd/es/layout/layout';
+import { Content, Header } from 'antd/es/layout/layout';
 import clsx from 'clsx';
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
@@ -42,10 +44,10 @@ const MainLayout = () => {
           defaultSelectedKeys={['1']}
           items={[
             { key: '1', icon: <HomeOutlined />, label: <Link to={'/'}>Trang chủ</Link> },
-            { key: '2', icon: <PrinterOutlined />, label: <Link to={'/supplies'}>Cơ sở vật chất</Link> },
-            { key: '3', icon: <PicLeftOutlined />, label: <Link to={'/'}>Phòng ban</Link> },
-            { key: '4', icon: <UsergroupAddOutlined />, label: <Link to={'/'}>Nhân viên</Link> },
-            { key: '5', icon: <GiftOutlined />, label: <Link to={'/product'}>Sản phẩm</Link> },
+            { key: '2', icon: <PrinterOutlined />, label: <Link to={'/product'}>Cơ sở vật chất</Link> },
+            { key: '2', icon: <ContainerOutlined />, label: <Link to={'/product_details'}>Tất cả sản phẩm</Link> },
+            { key: '3', icon: <PicLeftOutlined />, label: <Link to={'/'}>Phòng kho</Link> },
+            { key: '4', icon: <OrderedListOutlined />, label: <Link to={'/grade'}>Khối lớp</Link> },
           ]}
         />
       </Sider>
@@ -74,8 +76,6 @@ const MainLayout = () => {
         <Content className='bg-white p-4 !pb-[64px]'>
           <Outlet />
         </Content>
-
-        <Footer>123</Footer>
       </Layout>
     </Layout>
   );
