@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import axios from '../../apis/axios-client';
 import Card from '../../components/sections/Card';
 
 const Home = () => {

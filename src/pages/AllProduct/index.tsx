@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button, Input, Modal, Space, Switch, Table, Tooltip } from 'antd';
-import axios from 'axios';
+import axios from '../../apis/axios-client';
 import dayjs from 'dayjs';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';

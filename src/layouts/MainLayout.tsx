@@ -1,6 +1,5 @@
 import {
   CaretDownOutlined,
-  ContainerOutlined,
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -20,8 +19,7 @@ const items: MenuProps['items'] = [{ label: <Link to={'/login'}>Logout</Link>, k
 
 const itemsMenu = [
   { key: '1', icon: <HomeOutlined />, label: <Link to={'/'}>Trang chủ</Link> },
-  { key: '2', icon: <PrinterOutlined />, label: <Link to={'/product'}>Cơ sở vật chất</Link> },
-  { key: '3', icon: <ContainerOutlined />, label: <Link to={'/product_details'}>Tất cả sản phẩm</Link> },
+  { key: '2', icon: <PrinterOutlined />, label: <Link to={'/product'}>Product</Link> },
   { key: '4', icon: <PicLeftOutlined />, label: <Link to={'/kho'}>Phòng kho</Link> },
   { key: '5', icon: <OrderedListOutlined />, label: <Link to={'/grade'}>Khối lớp</Link> },
 ];
@@ -30,21 +28,43 @@ const MainLayout = () => {
   const [collapsed, setCollapsed] = React.useState(false);
   const selectedKey = useLocation().pathname;
 
-  //Xác định pathname nào đang active > keep
-  const highlight = () => {
-    switch (selectedKey) {
-      case '/product':
-        return ['2'];
-      case '/product_details':
-        return ['3'];
-      case '/kho':
-        return ['4'];
-      case '/grade':
-        return ['5'];
-      default:
-        return ['1'];
+  const itemActive = () => {
+    // const pathList: any = {
+    //   '/admin/user': 'user',
+    //   '/admin/media': 'media',
+    //   '/admin/parent/child1': 'child1',
+    //   '/admin/parent/child2': 'child2',
+    // };
+
+    const pathList: any = {
+      '/product': '2',
+      '/kho': '4',
+      '/grade': '5',
+    };
+
+    for (const path in pathList) {
+      if (selectedKey.startsWith(path)) {
+        return [pathList[path]];
+      }
     }
+    return ['1'];
   };
+
+  //Xác định pathname nào đang active > keep
+  // const highlight = () => {
+  //   switch (selectedKey) {
+  //     case '/product':
+  //       return ['2'];
+  //     case '/product_details':
+  //       return ['3'];
+  //     case '/kho':
+  //       return ['4'];
+  //     case '/grade':
+  //       return ['5'];
+  //     default:
+  //       return ['1'];
+  //   }
+  // };
 
   return (
     <Layout>
@@ -61,7 +81,7 @@ const MainLayout = () => {
           </Link>
         </div>
 
-        <Menu selectedKeys={highlight()} className='!h-screen' mode='inline' items={itemsMenu} />
+        <Menu selectedKeys={itemActive()} className='!h-screen' mode='inline' items={itemsMenu} />
       </Sider>
 
       <Layout className={clsx('ml-[200px] h-auto !duration-300', collapsed && 'ml-[80px] !duration-300')}>

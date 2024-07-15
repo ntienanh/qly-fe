@@ -23,7 +23,7 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <QueryClientProvider client={queryClient}>
-        <NextTopLoader color='#1677ff' showSpinner={false} />
+        <NextTopLoader color='#1677ff' showSpinner={false} zIndex={51} />
 
         <ConfigProvider>
           <Routes>
@@ -38,6 +38,7 @@ function App() {
               </Route>
             </Route>
 
+            <Route path='/bent3' element={<LoginPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='*' element={<NotFoundPage />} />
           </Routes>

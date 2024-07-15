@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UploadOutlined } from '@ant-design/icons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Button, Divider, Input, Modal, Select, Space, Table, Tooltip, Upload } from 'antd';
-import axios from 'axios';
+import { Button, Input, Modal, Select, Space, Table, Tooltip, Upload } from 'antd';
+import axios from '../../apis/axios-client';
 import dayjs from 'dayjs';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
